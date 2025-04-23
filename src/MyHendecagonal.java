@@ -48,6 +48,7 @@ public class MyHendecagonal extends MyDrawing {
 		// 塗りつぶし
 		g2.setColor(getFillColor());
 		g2.fillPolygon(hendecagon);
+		
 		// 線の描画
 		g2.setColor(getLineColor());
 		g2.setStroke(new BasicStroke(getLineWidth()));
