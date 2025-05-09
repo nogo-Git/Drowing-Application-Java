@@ -12,13 +12,13 @@ public class ArcState extends State {
 	public void mouseDown(int x, int y) {
 		x1 = x;
 		y1 = y;
-		currentArc = new MyArc(x1, y1, 0, 0);
+		currentArc = new MyArc(x1, y1);
 		stateManager.addDrawing(currentArc);
 	}
 
 	@Override
 	public void mouseDrag(int x, int y) {
-		currentArc.setSize(x - x1, y - y1);
+		// currentArc.setSize(x - x1, y - y1);
 	}
 
 	@Override
