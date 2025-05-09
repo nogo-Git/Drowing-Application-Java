@@ -9,7 +9,7 @@ public class MyHendecagonal extends MyDrawing {
 	}
 	
 	public MyHendecagonal(int xpt, int ypt, int width, int height) {
-		this(xpt, ypt, width, height, Color.black, Color.black);
+		this(xpt, ypt, width, height, Color.black, Color.white);
 	}
 	
 	public MyHendecagonal(int xpt, int ypt, int width, int height, Color lineColor, Color fillColor) {
@@ -57,7 +57,10 @@ public class MyHendecagonal extends MyDrawing {
 		g2.setColor(getFillColor());
 		g2.fillPolygon(xPoints, yPoints, numPoints);
 		g2.setColor(getLineColor());
-		g2.setStroke(new BasicStroke(getLineWidth()));
+		if (getDashed())
+			g2.setStroke(new MyDashStroke(getLineWidth()));
+		else
+			g2.setStroke(new BasicStroke(getLineWidth()));
 		g2.drawPolygon(xPoints, yPoints, numPoints);
 	}
 }

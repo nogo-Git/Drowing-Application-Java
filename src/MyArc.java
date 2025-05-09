@@ -16,7 +16,7 @@ public class MyArc extends MyDrawing {
 	}
 
 	public MyArc(int xpt, int ypt, int width, int height, int startAngle, int arcAngle) {
-		this(xpt, ypt, width, height, startAngle, arcAngle, Color.black, Color.black);
+		this(xpt, ypt, width, height, startAngle, arcAngle, Color.black, Color.white);
 	}
 	
 	public MyArc(int xpt, int ypt, int width, int height, int startAngle, int arcAngle, Color lineColor, Color fillColor) {
@@ -46,7 +46,10 @@ public class MyArc extends MyDrawing {
 		}
 		
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(getLineWidth()));
+		if (getDashed())
+			g2.setStroke(new MyDashStroke(getLineWidth()));
+		else
+			g2.setStroke(new BasicStroke(getLineWidth()));
 		g2.setColor(getFillColor());
 		g2.fillArc(x, y, w, h, startAngle, arcAngle);
 		g2.setColor(getLineColor());

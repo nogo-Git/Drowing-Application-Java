@@ -2,12 +2,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -34,6 +36,8 @@ public class MyApplication extends JFrame{
         jp.add(hendecagonalButton);
         ArcButton arcButton = new ArcButton(stateManager);
         jp.add(arcButton);
+        JCheckBox dashCheck = new JCheckBox("dash line");
+        jp.add(dashCheck);
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(jp, BorderLayout.NORTH);
@@ -51,6 +55,12 @@ public class MyApplication extends JFrame{
         		stateManager.mouseDrag(e.getX(), e.getY());
         	}
         });
+        
+        dashCheck.addItemListener(e -> {
+            boolean selected = (e.getStateChange() == ItemEvent.SELECTED);
+            stateManager.setDashed(selected);
+        });
+
 
         this.addWindowListener(new WindowAdapter() {
             // ウィンドウを閉じたら終了
@@ -61,7 +71,7 @@ public class MyApplication extends JFrame{
     }
 
     public Dimension getPreferredSize(){
-        return new Dimension(300, 400);
+        return new Dimension(500, 600);
     }
 
     public static void main(String[] args){
