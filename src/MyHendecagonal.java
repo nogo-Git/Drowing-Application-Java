@@ -1,12 +1,23 @@
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 
 public class MyHendecagonal extends MyDrawing {
 	public MyHendecagonal(int xpt, int ypt) {
-		super();
-		setLocation(xpt, ypt);
+		this(xpt, ypt, 80, 80);
+	}
+	
+	public MyHendecagonal(int xpt, int ypt, int width, int height) {
+		this(xpt, ypt, width, height, Color.black, Color.black);
+	}
+	
+	public MyHendecagonal(int xpt, int ypt, int width, int height, Color lineColor, Color fillColor) {
+		this(xpt, ypt, width, height, lineColor, fillColor, 2);
+	}
+	
+	public MyHendecagonal(int xpt, int ypt, int width, int height, Color lineColor, Color fillColor, int lineWidth) {
+		super(xpt, ypt, width, height, lineColor, fillColor, lineWidth);
 	}
 	
 	public void draw(Graphics g) {
@@ -43,15 +54,10 @@ public class MyHendecagonal extends MyDrawing {
 		}
 
 		Graphics2D g2 = (Graphics2D) g;
-		Polygon hendecagon = new Polygon(xPoints, yPoints, numPoints);
-
-		// 塗りつぶし
 		g2.setColor(getFillColor());
-		g2.fillPolygon(hendecagon);
-		
-		// 線の描画
+		g2.fillPolygon(xPoints, yPoints, numPoints);
 		g2.setColor(getLineColor());
 		g2.setStroke(new BasicStroke(getLineWidth()));
-		g2.drawPolygon(hendecagon);
+		g2.drawPolygon(xPoints, yPoints, numPoints);
 	}
 }
