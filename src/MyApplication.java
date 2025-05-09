@@ -32,6 +32,8 @@ public class MyApplication extends JFrame{
         jp.add(ovalButton);
         HendecagonalButton hendecagonalButton = new HendecagonalButton(stateManager);
         jp.add(hendecagonalButton);
+        ArcButton arcButton = new ArcButton(stateManager);
+        jp.add(arcButton);
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(jp, BorderLayout.NORTH);
