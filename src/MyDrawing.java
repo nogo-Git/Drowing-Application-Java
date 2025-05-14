@@ -1,11 +1,14 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class MyDrawing {
 	private int x, y, w, h;	// X座標，Y座標，幅，高さ
 	private Color lineColor, fillColor;	// 線の色，塗り色
 	private int lineWidth;	// 線の太さ
 	
+	private boolean isShadow = false; // 影を付けるかどうか
 	private boolean isDashed = false; // 破線であるかどうか
 	
 	public MyDrawing(int x, int y, int w, int h, Color lineColor, Color fillColor, int lineWidth) {
@@ -16,7 +19,11 @@ public class MyDrawing {
 	}
 
 	public void draw(Graphics g) {
-		
+		Graphics2D g2 = (Graphics2D) g;
+		if (getDashed())
+			g2.setStroke(new MyDashStroke(getLineWidth()));
+		else
+			g2.setStroke(new BasicStroke(getLineWidth()));
 	}
 
 	public void move(int dx, int dy) {
@@ -72,6 +79,10 @@ public class MyDrawing {
 		this.fillColor = fillColor;
 	}
 	
+	public void setShadow(boolean b) {
+		isShadow = b;
+	}
+	
 	public void setDashed(boolean b) {
 		// 破線状態の切り替え
 		isDashed = b;
@@ -105,6 +116,10 @@ public class MyDrawing {
 	
 	public int getLineWidth() {
 		return lineWidth;
+	}
+	
+	public boolean getShadow() {
+		return isShadow;
 	}
 	
 	public boolean getDashed() {

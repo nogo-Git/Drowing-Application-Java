@@ -36,6 +36,8 @@ public class MyApplication extends JFrame{
         jp.add(hendecagonalButton);
         ArcButton arcButton = new ArcButton(stateManager);
         jp.add(arcButton);
+        JCheckBox shadowCheck = new JCheckBox("shadow");
+        jp.add(shadowCheck);        
         JCheckBox dashCheck = new JCheckBox("dash line");
         jp.add(dashCheck);
 
@@ -54,6 +56,11 @@ public class MyApplication extends JFrame{
         	public void mouseDragged(MouseEvent e) {
         		stateManager.mouseDrag(e.getX(), e.getY());
         	}
+        });
+        
+        shadowCheck.addItemListener(e -> {
+            boolean selected = (e.getStateChange() == ItemEvent.SELECTED);
+            stateManager.setShadow(selected);
         });
         
         dashCheck.addItemListener(e -> {

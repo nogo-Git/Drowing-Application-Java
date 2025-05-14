@@ -1,4 +1,3 @@
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,6 +20,8 @@ public class MyOval extends MyDrawing {
 	}
 	
 	public void draw(Graphics g) {
+		super.draw(g);
+		
 		int x = getX();
 		int y = getY();
 		int w = getW();
@@ -37,10 +38,12 @@ public class MyOval extends MyDrawing {
 		}
 		
 		Graphics2D g2 = (Graphics2D) g;
-		if (getDashed())
-			g2.setStroke(new MyDashStroke(getLineWidth()));
-		else
-			g2.setStroke(new BasicStroke(getLineWidth()));
+		
+		if (getShadow()) {
+			g2.setColor(Color.black);
+			g2.fillOval(x+5, y+5, w, h);
+		}
+		
 		g2.setColor(getFillColor());
 		g2.fillOval(x, y, w, h);
 		g2.setColor(getLineColor());

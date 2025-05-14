@@ -1,4 +1,3 @@
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,6 +20,8 @@ public class MyHendecagonal extends MyDrawing {
 	}
 	
 	public void draw(Graphics g) {
+		super.draw(g);
+		
 		int x = getX();
 		int y = getY();
 		int w = getW();
@@ -54,13 +55,22 @@ public class MyHendecagonal extends MyDrawing {
 		}
 
 		Graphics2D g2 = (Graphics2D) g;
+		
+		if (getShadow()) {
+			int[] xShadowPoints = new int[numPoints];
+			int[] yShadowPoints = new int[numPoints];
+			
+			g2.setColor(Color.black);
+			for (int i = 0; i < numPoints; i++) {
+				xShadowPoints[i] = xPoints[i] + 5;
+				yShadowPoints[i] = yPoints[i] + 5;
+			}
+			g2.fillPolygon(xShadowPoints, yShadowPoints, numPoints);
+		}
+		
 		g2.setColor(getFillColor());
 		g2.fillPolygon(xPoints, yPoints, numPoints);
 		g2.setColor(getLineColor());
-		if (getDashed())
-			g2.setStroke(new MyDashStroke(getLineWidth()));
-		else
-			g2.setStroke(new BasicStroke(getLineWidth()));
 		g2.drawPolygon(xPoints, yPoints, numPoints);
 	}
 }
