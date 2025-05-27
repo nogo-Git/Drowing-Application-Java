@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 public class MyArc extends MyDrawing {
 	private int startAngle = 0;
-	private int arcAngle = 120;
+	private int arcAngle = 180;
 	
 	public MyArc(int xpt, int ypt) {
 		this(xpt, ypt, 80, 80);

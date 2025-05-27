@@ -11,7 +11,12 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class MyApplication extends JFrame{
     StateManager stateManager;
@@ -40,6 +45,11 @@ public class MyApplication extends JFrame{
         jp.add(shadowCheck);        
         JCheckBox dashCheck = new JCheckBox("dash line");
         jp.add(dashCheck);
+        
+        jp.add(new JLabel("Line Width:")); // ラベル追加
+        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(2, 1, 20, 1); // 初期値2, 最小1, 最大20, ステップ1
+        JSpinner lineWidthSpinner = new JSpinner(spinnerModel);
+        jp.add(lineWidthSpinner);
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(jp, BorderLayout.NORTH);
@@ -67,7 +77,13 @@ public class MyApplication extends JFrame{
             boolean selected = (e.getStateChange() == ItemEvent.SELECTED);
             stateManager.setDashed(selected);
         });
-
+        
+        lineWidthSpinner.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                int lineWidth = (Integer) lineWidthSpinner.getValue();
+                stateManager.setLineWidth(lineWidth);
+            }
+        });
 
         this.addWindowListener(new WindowAdapter() {
             // ウィンドウを閉じたら終了

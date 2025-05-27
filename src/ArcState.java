@@ -23,8 +23,6 @@ public class ArcState extends State {
 
 	@Override
 	public void mouseUp(int x, int y) {
-		// TODO 自動生成されたメソッド・スタブ
-
 	}
 
 }

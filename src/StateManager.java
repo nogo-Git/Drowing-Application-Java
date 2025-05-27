@@ -3,12 +3,14 @@ public class StateManager {
 	State currentState;
 	boolean isShadow;
 	boolean isDashed;
+	int lineWidth;
 	
 	public StateManager(MyCanvas canvas) {
 		this.canvas = canvas;
 		currentState = new RectState(this);
 		isShadow = false;
 		isDashed = false;
+		lineWidth = 2;
 	}
 	
 	public void setState(State state) {
@@ -20,7 +22,11 @@ public class StateManager {
 	}
 	
 	public void setDashed(boolean isDashed) {
-	    this.isDashed = isDashed;
+		this.isDashed = isDashed;
+	}
+	
+	public void setLineWidth(int lineWidth) {
+		this.lineWidth = lineWidth;
 	}
 
 	public void mouseDown(int x, int y) {
@@ -44,11 +50,16 @@ public class StateManager {
 	public boolean getDashed() {
 	    return isDashed;
 	}
+	
+	public int getLineWidth() {
+		return lineWidth;
+	}
 
 	
 	public void addDrawing(MyDrawing d) {
 		d.setShadow(isShadow);
 		d.setDashed(isDashed);
+		d.setLineWidth(lineWidth);
 		canvas.addDrawing(d);
 	}
 }
