@@ -31,8 +31,10 @@ public class MyApplication extends JFrame{
         JPanel jp = new JPanel();
         jp.setLayout(new FlowLayout());
 
-        stateManager = new StateManager(canvas);
+        stateManager = new StateManager(canvas.getMediator());
 
+        SelectButton selectButton = new SelectButton(stateManager);
+        jp.add(selectButton);
         RectButton rectButton = new RectButton(stateManager);
         jp.add(rectButton);
         OvalButton ovalButton = new OvalButton(stateManager);

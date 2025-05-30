@@ -1,12 +1,12 @@
 public class StateManager {
-	MyCanvas canvas;
+	Mediator mediator;
 	State currentState;
 	boolean isShadow;
 	boolean isDashed;
 	int lineWidth;
 	
-	public StateManager(MyCanvas canvas) {
-		this.canvas = canvas;
+	public StateManager(Mediator mediator) {
+		this.mediator = mediator;
 		currentState = new RectState(this);
 		isShadow = false;
 		isDashed = false;
@@ -31,12 +31,12 @@ public class StateManager {
 
 	public void mouseDown(int x, int y) {
 		currentState.mouseDown(x, y);
-		canvas.repaint();
+		mediator.repaint();
 	}
 	
 	public void mouseDrag(int x, int y) {
 		currentState.mouseDrag(x, y);
-		canvas.repaint();
+		mediator.repaint();
 	}
 	
 	public void mouseUp(int x, int y) {
@@ -60,6 +60,6 @@ public class StateManager {
 		d.setShadow(isShadow);
 		d.setDashed(isDashed);
 		d.setLineWidth(lineWidth);
-		canvas.addDrawing(d);
+		mediator.addDrawing(d);
 	}
 }
