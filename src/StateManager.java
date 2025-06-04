@@ -55,6 +55,9 @@ public class StateManager {
 		return lineWidth;
 	}
 
+	public Mediator getMediator() {
+		return mediator;
+	}
 	
 	public void addDrawing(MyDrawing d) {
 		d.setShadow(isShadow);

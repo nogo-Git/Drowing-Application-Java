@@ -12,6 +12,8 @@ public class SelectState extends State {
 		x1 = x;
 		y1 = y;
 		
+		stateManager.getMediator().setSelected(x,y);
+		stateManager.getMediator().repaint();
 	}
 
 	@Override

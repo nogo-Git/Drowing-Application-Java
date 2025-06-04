@@ -36,15 +36,24 @@ public class Mediator {
 		this.selectedDrawing = selectedDrawing;
 	}
 	
+	private void updateSelection(MyDrawing newSelectedDrawing) {
+		if (selectedDrawing != null && selectedDrawing != newSelectedDrawing) {
+			selectedDrawing.setSelected(false);
+		}
+		selectedDrawing = newSelectedDrawing;
+		if (selectedDrawing != null) {
+			selectedDrawing.setSelected(true);
+		}
+	}
+	
 	public void setSelected(int x, int y) {
 		MyDrawing tmpDrawing = null;
 		for (int i = drawings.size() - 1; i >= 0; i--) {
 			tmpDrawing = drawings.get(i);
 			if (tmpDrawing.contains(x, y)) {
-				setSelectedDrawing(tmpDrawing);
-				
 				break;
 			}
 		}
+		updateSelection(tmpDrawing);
 	}
 }

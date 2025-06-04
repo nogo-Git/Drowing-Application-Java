@@ -9,12 +9,12 @@ public class SelectButton extends JButton {
 	public SelectButton(StateManager stateManager) {
 		super("Select");
 		
-		addActionListener(new ArcListener());
+		addActionListener(new SelectListener());
 		
 		this.stateManager = stateManager;
 	}
 	
-	class ArcListener implements ActionListener {
+	class SelectListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			stateManager.setState(new SelectState(stateManager));
 		}

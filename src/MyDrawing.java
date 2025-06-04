@@ -49,23 +49,28 @@ public class MyDrawing {
 		// オブジェクトを移動する処理を書く
 		x += dx;
 		y += dy;
+		setRegion();
 	}
 	
 	// setter ---------------------------------------
 	public void setX(int x) {
 		this.x = x;
+		setRegion();
 	}
 
 	public void setY(int y) {
 		this.y = y;
+		setRegion();
 	}
 
 	public void setW(int w) {
 		this.w = w;
+		setRegion();
 	}
 
 	public void setH(int h) {
 		this.h = h;
+		setRegion();
 	}
 
 	public void setLineColor(Color lineColor) {
@@ -84,12 +89,14 @@ public class MyDrawing {
 		// オブジェクトの位置を変更する処理を書く
 		this.x = x;
 		this.y = y;
+		setRegion();
 	}
 	
 	public void setSize(int w, int h) {
 		// オブジェクトのサイズを変更する処理を書く
 		this.w = w;
 		this.h = h;
+		setRegion();
 	}
 	
 	public void setColor(Color lineColor, Color fillColor) {
