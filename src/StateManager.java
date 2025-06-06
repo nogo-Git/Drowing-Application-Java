@@ -1,9 +1,13 @@
+import java.awt.Color;
+
 public class StateManager {
 	Mediator mediator;
 	State currentState;
 	boolean isShadow;
 	boolean isDashed;
 	int lineWidth;
+	Color fillColor = Color.white;
+	Color lineColor = Color.black;
 	
 	public StateManager(Mediator mediator) {
 		this.mediator = mediator;
@@ -27,6 +31,14 @@ public class StateManager {
 	
 	public void setLineWidth(int lineWidth) {
 		this.lineWidth = lineWidth;
+	}
+	
+	public void setFillColor(Color color) {
+		fillColor = color;
+	}
+	
+	public void setLineColor(Color color) {
+		lineColor = color;
 	}
 
 	public void mouseDown(int x, int y) {
@@ -59,10 +71,20 @@ public class StateManager {
 		return mediator;
 	}
 	
+	public Color getFillColor() {
+		return fillColor;
+	}
+	
+	public Color getLineColor() {
+		return lineColor;
+	}
+	
 	public void addDrawing(MyDrawing d) {
 		d.setShadow(isShadow);
 		d.setDashed(isDashed);
 		d.setLineWidth(lineWidth);
+		d.setFillColor(fillColor);
+		d.setLineColor(lineColor);
 		mediator.addDrawing(d);
 	}
 }

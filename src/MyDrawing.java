@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
-public class MyDrawing {
+public class MyDrawing implements Cloneable{
 	private int x, y, w, h;	// X座標，Y座標，幅，高さ
 	private Color lineColor, fillColor;	// 線の色，塗り色
 	private int lineWidth;	// 線の太さ
@@ -50,6 +50,18 @@ public class MyDrawing {
 		x += dx;
 		y += dy;
 		setRegion();
+	}
+	
+	@Override
+	public MyDrawing clone() {
+		MyDrawing clone = null;
+		
+		try {
+			clone = (MyDrawing)super.clone();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return clone;
 	}
 	
 	// setter ---------------------------------------
