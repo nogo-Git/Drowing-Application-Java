@@ -124,7 +124,7 @@ public class MyApplication extends JFrame {
 
         canvas.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-            	if (e.getButton() == MouseEvent.BUTTON3) {
+            	if (e.getButton() == MouseEvent.BUTTON3) { // 右クリックの時はペースト
             		mediator.paste(e.getX(), e.getY());
             	}
             	else {
@@ -140,7 +140,7 @@ public class MyApplication extends JFrame {
         
         canvas.addMouseMotionListener(new MouseMotionAdapter() {
         	public void mouseDragged(MouseEvent e) {
-        		stateManager.mouseDrag(e.getX(), e.getY());
+    			stateManager.mouseDrag(e.getX(), e.getY());
         	}
         });
         

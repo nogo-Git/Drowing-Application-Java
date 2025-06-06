@@ -61,6 +61,7 @@ public class MyDrawing implements Cloneable{
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		clone.isSelected = false;
 		return clone;
 	}
 	
