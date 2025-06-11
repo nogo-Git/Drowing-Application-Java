@@ -2,14 +2,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent; // ActionListenerのためにインポート
-import java.awt.event.ActionListener; // ActionListenerのためにインポート
-import java.awt.event.ItemEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -20,8 +12,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 
 public class MyApplication extends JFrame {
@@ -72,32 +62,11 @@ public class MyApplication extends JFrame {
         // --- 「Edit」メニュー ---
         JMenu editMenu = new JMenu("Edit");
         JMenuItem deleteItem = new JMenuItem("Delete");
-        deleteItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mediator.deleteSelectedDrawing(); // 選択されている図形を削除
-            }
-        });
-        editMenu.add(deleteItem);
-        
         JMenuItem copyItem = new JMenuItem("Copy");
-        copyItem.addActionListener(new ActionListener() {
-        	@Override
-        	public void actionPerformed(ActionEvent e) {
-        		mediator.copy();
-        		mediator.repaint();
-        	}
-        });
-        editMenu.add(copyItem);
-        
         JMenuItem cutItem = new JMenuItem("Cut");
-        cutItem.addActionListener(new ActionListener() {
-        	@Override
-        	public void actionPerformed(ActionEvent e) {
-        		mediator.cut();
-        		mediator.repaint();
-        	}
-        });
+        
+        editMenu.add(deleteItem);
+        editMenu.add(copyItem);
         editMenu.add(cutItem);
         menuBar.add(editMenu); // メニューバーに「Edit」メニューを追加
         
@@ -108,53 +77,31 @@ public class MyApplication extends JFrame {
         getContentPane().add(canvas, BorderLayout.CENTER);
 
         // --- イベントリスナー設定 ---
+        // メニューアイテムのリスナーを設定
+        deleteItem.addActionListener(new DeleteActionListener(mediator));
+        copyItem.addActionListener(new CopyActionListener(mediator));
+        cutItem.addActionListener(new CutActionListener(mediator));
+
         // Canvasのフォーカス設定
         canvas.setFocusable(true); 
 
-        canvas.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-            	if (e.getButton() == MouseEvent.BUTTON3) { // 右クリックの時はペースト
-            		mediator.paste(e.getX(), e.getY());
-            	}
-            	else {
-            		stateManager.mouseDown(e.getX(), e.getY());
-            	}
-                canvas.requestFocusInWindow(); // マウスプレス時にキャンバスにフォーカスを要求
-            }
-        });
+        // Canvasのリスナーを設定
+        canvas.addMouseListener(new CanvasMouseListener(mediator, stateManager, canvas));
+        canvas.addMouseMotionListener(new CanvasMouseMotionListener(stateManager));
         
-        canvas.addMouseMotionListener(new MouseMotionAdapter() {
-        	public void mouseDragged(MouseEvent e) {
-    			stateManager.mouseDrag(e.getX(), e.getY());
-        	}
-        });
+        // チェックボックスのリスナーを設定
+        shadowCheck.addItemListener(new ShadowCheckItemListener(stateManager));
+        dashCheck.addItemListener(new DashCheckItemListener(stateManager));
         
-        shadowCheck.addItemListener(e -> {
-            boolean selected = (e.getStateChange() == ItemEvent.SELECTED);
-            stateManager.setShadow(selected);
-        });
-        
-        dashCheck.addItemListener(e -> {
-            boolean selected = (e.getStateChange() == ItemEvent.SELECTED);
-            stateManager.setDashed(selected);
-        });
-        
-        lineWidthSpinner.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                int lineWidthVal = (Integer) lineWidthSpinner.getValue();
-                stateManager.setLineWidth(lineWidthVal);
-            }
-        });
+        // スピナーのリスナーを設定
+        lineWidthSpinner.addChangeListener(new LineWidthSpinnerListener(stateManager, lineWidthSpinner));
 
-        this.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        // ウィンドウのリスナーを設定
+        this.addWindowListener(new AppWindowListener());
     }
 
     public Dimension getPreferredSize(){
-        return new Dimension(800, 600);
+        return new Dimension(1000, 600);
     }
 
     public static void main(String[] args){
