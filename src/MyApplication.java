@@ -43,8 +43,14 @@ public class MyApplication extends JFrame {
         ArcButton arcButton = new ArcButton(stateManager);
         jp.add(arcButton);
         
-        ColorComboBox colorComboBox = new ColorComboBox(stateManager, mediator, this);
-        jp.add(colorComboBox);
+        // --- 色選択コンポーネント ---
+        jp.add(new JLabel("Line Color:"));
+        ColorComboBox lineColorComboBox = new ColorComboBox(stateManager, mediator, this, "line");
+        jp.add(lineColorComboBox);
+
+        jp.add(new JLabel("Fill Color:"));
+        ColorComboBox fillColorComboBox = new ColorComboBox(stateManager, mediator, this, "fill");
+        jp.add(fillColorComboBox);
         
         JCheckBox shadowCheck = new JCheckBox("shadow");
         jp.add(shadowCheck);        
@@ -90,18 +96,18 @@ public class MyApplication extends JFrame {
         canvas.addMouseMotionListener(new CanvasMouseMotionListener(stateManager));
         
         // チェックボックスのリスナーを設定
-        shadowCheck.addItemListener(new ShadowCheckItemListener(stateManager));
+        shadowCheck.addItemListener(new ShadowCheckItemListener(stateManager, mediator));
         dashCheck.addItemListener(new DashCheckItemListener(stateManager));
         
         // スピナーのリスナーを設定
-        lineWidthSpinner.addChangeListener(new LineWidthSpinnerListener(stateManager, lineWidthSpinner));
+        lineWidthSpinner.addChangeListener(new LineWidthSpinnerListener(stateManager, mediator, lineWidthSpinner));
 
         // ウィンドウのリスナーを設定
         this.addWindowListener(new AppWindowListener());
     }
 
     public Dimension getPreferredSize(){
-        return new Dimension(1000, 600);
+        return new Dimension(1200, 600);
     }
 
     public static void main(String[] args){

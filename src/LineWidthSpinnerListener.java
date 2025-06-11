@@ -4,16 +4,25 @@ import javax.swing.event.ChangeListener;
 
 public class LineWidthSpinnerListener implements ChangeListener {
     private StateManager stateManager;
+    private Mediator mediator;
     private JSpinner spinner;
 
-    public LineWidthSpinnerListener(StateManager stateManager, JSpinner spinner) {
+    public LineWidthSpinnerListener(StateManager stateManager, Mediator mediator, JSpinner spinner) {
         this.stateManager = stateManager;
+        this.mediator = mediator;
         this.spinner = spinner;
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        int lineWidthVal = (Integer) spinner.getValue(); //
-        stateManager.setLineWidth(lineWidthVal); //
+        int lineWidthVal = (Integer) spinner.getValue();
+        stateManager.setLineWidth(lineWidthVal);
+        
+        // 選択している図形の線の太さを変更
+        MyDrawing selectedDrawing = mediator.getSelectedDrawing();
+        if (selectedDrawing != null) {
+        	selectedDrawing.setLineWidth(lineWidthVal);
+        	mediator.repaint();
+        }
     }
 }
