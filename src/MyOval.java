@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 
 public class MyOval extends MyDrawing {
 	public MyOval(int xpt, int ypt) {
@@ -48,5 +49,24 @@ public class MyOval extends MyDrawing {
 		g2.fillOval(x, y, w, h);
 		g2.setColor(getLineColor());
 		g2.drawOval(x, y, w, h);
+	}
+	
+	@Override
+	public void setRegion() {
+		// 包含領域を、自身の形である楕円（Ellipse2D）に設定する
+		int regionX = getX();
+		int regionY = getY();
+		int regionW = getW();
+		int regionH = getH();
+		
+		if (regionW < 0) {
+			regionX += regionW;
+			regionW *= -1;
+		}
+		if (regionH < 0) {
+			regionY += regionH;
+			regionH *= -1;
+		}
+		region = new Ellipse2D.Double(regionX, regionY, regionW, regionH);
 	}
 }

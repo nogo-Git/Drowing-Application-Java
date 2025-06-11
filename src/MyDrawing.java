@@ -181,8 +181,22 @@ public class MyDrawing implements Cloneable{
 	}
 	
 	public void setRegion() {
+		// 高さや横幅が負の時のための処理
+		int regionX = x;
+		int regionY = y;
+		int regionW = w;
+		int regionH = h;
+		
+		if (regionW < 0) {
+			regionX += regionW;
+			regionW *= -1;
+		}
+		if (regionH < 0) {
+			regionY += regionH;
+			regionH *= -1;
+		}
 		// MyDrawingを継承する子クラス内でそれぞれ定義する．
 		// 包含判定図形が矩形ならば，例えば，
-		region = new Rectangle(x,y,w,h);
+		region = new Rectangle(regionX, regionY, regionW, regionH);
 	}
 }

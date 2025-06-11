@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Arc2D;
 
 public class MyArc extends MyDrawing {
 	private int startAngle = 0;
@@ -57,5 +58,25 @@ public class MyArc extends MyDrawing {
 		g2.fillArc(x, y, w, h, startAngle, arcAngle);
 		g2.setColor(getLineColor());
 		g2.drawArc(x, y, w, h, startAngle, arcAngle);
+	}
+	
+	@Override
+	public void setRegion() {
+		// 包含領域を、自身の形である円弧（Arc2D）に設定する
+		int regionX = getX();
+		int regionY = getY();
+		int regionW = getW();
+		int regionH = getH();
+		
+		if (regionW < 0) {
+			regionX += regionW;
+			regionW *= -1;
+		}
+		if (regionH < 0) {
+			regionY += regionH;
+			regionH *= -1;
+		}
+		// fillArcで描画しているので、当たり判定もパイ（扇形）にする
+		region = new Arc2D.Double(regionX, regionY, regionW, regionH, startAngle, arcAngle, Arc2D.PIE);
 	}
 }

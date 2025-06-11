@@ -1,8 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 
 public class MyHendecagonal extends MyDrawing {
+	// 頂点座標を保持するフィールド
+	private int[] xPoints;
+	private int[] yPoints;
+	private final int numPoints = 11;
+	
 	public MyHendecagonal(int xpt, int ypt) {
 		this(xpt, ypt, 80, 80);
 	}
@@ -19,9 +25,8 @@ public class MyHendecagonal extends MyDrawing {
 		super(xpt, ypt, width, height, lineColor, fillColor, lineWidth);
 	}
 	
-	public void draw(Graphics g) {
-		super.draw(g);
-		
+	// 頂点座標を計算する
+	private void calculateVertices() {
 		int x = getX();
 		int y = getY();
 		int w = getW();
@@ -42,10 +47,11 @@ public class MyHendecagonal extends MyDrawing {
 		int centerY = y + h / 2;
 		int radius = Math.min(w, h) / 2;
 
-		// 頂点の数
-		int numPoints = 11;
-		int[] xPoints = new int[numPoints];
-		int[] yPoints = new int[numPoints];
+		// 頂点配列が未作成であれば初期化
+		if (xPoints == null || xPoints.length != numPoints) {
+			xPoints = new int[numPoints];
+			yPoints = new int[numPoints];
+		}
 
 		// 頂点座標の計算
 		for (int i = 0; i < numPoints; i++) {
@@ -53,7 +59,14 @@ public class MyHendecagonal extends MyDrawing {
 			xPoints[i] = centerX + (int)(radius * Math.cos(angle));
 			yPoints[i] = centerY + (int)(radius * Math.sin(angle));
 		}
-
+	}
+	
+	@Override
+	public void draw(Graphics g) {
+		super.draw(g);
+		
+		calculateVertices();
+		
 		Graphics2D g2 = (Graphics2D) g;
 		
 		if (getShadow()) {
@@ -72,5 +85,12 @@ public class MyHendecagonal extends MyDrawing {
 		g2.fillPolygon(xPoints, yPoints, numPoints);
 		g2.setColor(getLineColor());
 		g2.drawPolygon(xPoints, yPoints, numPoints);
+	}
+	
+	@Override
+	public void setRegion() {
+		calculateVertices();
+		
+		region = new Polygon(xPoints, yPoints, numPoints);
 	}
 }

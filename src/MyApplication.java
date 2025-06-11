@@ -53,6 +53,9 @@ public class MyApplication extends JFrame {
         ArcButton arcButton = new ArcButton(stateManager);
         jp.add(arcButton);
         
+        ColorComboBox colorComboBox = new ColorComboBox(stateManager, mediator, this);
+        jp.add(colorComboBox);
+        
         JCheckBox shadowCheck = new JCheckBox("shadow");
         jp.add(shadowCheck);        
         JCheckBox dashCheck = new JCheckBox("dash line");
@@ -65,20 +68,6 @@ public class MyApplication extends JFrame {
 
         // --- メニューバー、メニュー、メニューアイテムの作成 ---
         JMenuBar menuBar = new JMenuBar();
-
-        // 「Color」メニュー (前回の実装から)
-        JMenu colorMenu = new JMenu("Color");
-        String[] colorNames = {"Black", "White", "Red", "Green", "Blue", "Yellow", "Magenta", "Cyan"};
-        Color[] colors = {
-            Color.BLACK, Color.WHITE, Color.RED, Color.GREEN, Color.BLUE, 
-            Color.YELLOW, Color.MAGENTA, Color.CYAN
-        };
-        for (int i = 0; i < colorNames.length; i++) {
-            JMenuItem colorItem = new JMenuItem(colorNames[i]);
-            colorItem.addActionListener(new ColorChangeListener(stateManager, mediator, colors[i]));
-            colorMenu.add(colorItem);
-        }
-        menuBar.add(colorMenu);
         
         // --- 「Edit」メニュー ---
         JMenu editMenu = new JMenu("Edit");
@@ -119,7 +108,7 @@ public class MyApplication extends JFrame {
         getContentPane().add(canvas, BorderLayout.CENTER);
 
         // --- イベントリスナー設定 ---
-        // Canvasのフォーカス設定 (キーボードイベントによる削除を将来的に実装する場合に備えて)
+        // Canvasのフォーカス設定
         canvas.setFocusable(true); 
 
         canvas.addMouseListener(new MouseAdapter() {
@@ -132,10 +121,6 @@ public class MyApplication extends JFrame {
             	}
                 canvas.requestFocusInWindow(); // マウスプレス時にキャンバスにフォーカスを要求
             }
-            // マウスリリース時などにもフォーカスを要求することを検討しても良い
-            // public void mouseReleased(MouseEvent e) {
-            //     canvas.requestFocusInWindow();
-            // }
         });
         
         canvas.addMouseMotionListener(new MouseMotionAdapter() {
