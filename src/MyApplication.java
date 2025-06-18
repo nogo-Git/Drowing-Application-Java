@@ -15,9 +15,9 @@ import javax.swing.SpinnerNumberModel;
 
 
 public class MyApplication extends JFrame {
-    StateManager stateManager;
-    MyCanvas canvas;
-    Mediator mediator; 
+    private StateManager stateManager;
+    private MyCanvas canvas;
+    private Mediator mediator; 
 
     public MyApplication() {
         super("My Paint Application");

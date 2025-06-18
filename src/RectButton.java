@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class RectButton extends JButton {
-	StateManager stateManager;
+	private StateManager stateManager;
 	
 	public RectButton(StateManager stateManager) {
 		super("Rectangle");

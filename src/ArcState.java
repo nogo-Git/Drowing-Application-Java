@@ -1,8 +1,8 @@
 
 public class ArcState extends State {
-	StateManager stateManager;
-	int x1, y1;
-	MyArc currentArc;
+	private StateManager stateManager;
+	private int x1, y1;
+	private MyArc currentArc;
 	
 	public ArcState(StateManager stateManager) {
 		this.stateManager = stateManager;

@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class SelectButton extends JButton {
-	StateManager stateManager;
+	private StateManager stateManager;
 	
 	public SelectButton(StateManager stateManager) {
 		super("Select");

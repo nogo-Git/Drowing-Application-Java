@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class OvalButton extends JButton {
-	StateManager stateManager;
+	private StateManager stateManager;
 	
 	public OvalButton(StateManager stateManager) {
 		super("Oval");

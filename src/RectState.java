@@ -1,7 +1,7 @@
 public class RectState extends State {
-	StateManager stateManager;
-	int x1, y1;
-	MyRectangle currentRect;
+	private StateManager stateManager;
+	private int x1, y1;
+	private MyRectangle currentRect;
 	
 	public RectState(StateManager stateManager) {
 		this.stateManager = stateManager;

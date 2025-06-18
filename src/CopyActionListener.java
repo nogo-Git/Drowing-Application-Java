@@ -10,7 +10,6 @@ public class CopyActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        mediator.copy(); //
-        mediator.repaint(); //
+        mediator.copy();
     }
 }

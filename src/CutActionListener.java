@@ -10,7 +10,6 @@ public class CutActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        mediator.cut(); //
-        mediator.repaint(); //
+        mediator.cut();
     }
 }

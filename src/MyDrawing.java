@@ -13,7 +13,7 @@ public class MyDrawing implements Cloneable{
 	private boolean isDashed = false; // 破線であるかどうか
 	boolean isSelected;
 	Shape region;
-	final int SIZE = 7;
+	private int SIZE;
 	
 	public MyDrawing(int x, int y, int w, int h, Color lineColor, Color fillColor, int lineWidth) {
 		setLocation(x, y);
@@ -28,6 +28,7 @@ public class MyDrawing implements Cloneable{
 		
 		// 選択状態を表す四角形を描く
 		if (isSelected) {
+			SIZE = lineWidth * 3;
 			g.setColor(Color.black);
 			g.fillRect(x+w/2-SIZE/2, y-SIZE/2, SIZE, SIZE);
 			g.fillRect(x-SIZE/2, y+h/2-SIZE/2, SIZE, SIZE);
@@ -47,8 +48,8 @@ public class MyDrawing implements Cloneable{
 
 	public void move(int dx, int dy) {
 		// オブジェクトを移動する処理を書く
-		x += dx;
-		y += dy;
+		this.x += dx;
+		this.y += dy;
 		setRegion();
 	}
 	

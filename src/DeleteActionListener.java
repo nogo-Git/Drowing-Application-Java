@@ -10,6 +10,6 @@ public class DeleteActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        mediator.deleteSelectedDrawing(); // 選択されている図形を削除
+        mediator.removeDrawing(mediator.getSelectedDrawing()); // 選択されている図形を削除
     }
 }

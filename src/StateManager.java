@@ -1,13 +1,13 @@
 import java.awt.Color;
 
 public class StateManager {
-	Mediator mediator;
-	State currentState;
-	boolean isShadow;
-	boolean isDashed;
-	int lineWidth;
-	Color fillColor = Color.white;
-	Color lineColor = Color.black;
+	private Mediator mediator;
+	private State currentState;
+	private boolean isShadow;
+	private boolean isDashed;
+	private int lineWidth;
+	private Color fillColor = Color.white;
+	private Color lineColor = Color.black;
 	
 	public StateManager(Mediator mediator) {
 		this.mediator = mediator;

@@ -5,7 +5,7 @@ import java.util.Enumeration;
 import javax.swing.JPanel;
 
 public class MyCanvas extends JPanel{
-	Mediator mediator;
+	private Mediator mediator;
 	
 	public MyCanvas() {
 		this.mediator = new Mediator(this);

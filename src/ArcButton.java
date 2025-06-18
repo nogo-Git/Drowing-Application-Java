@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class ArcButton extends JButton {
-	StateManager stateManager;
+	private StateManager stateManager;
 	
 	public ArcButton(StateManager stateManager) {
 		super("Arc");

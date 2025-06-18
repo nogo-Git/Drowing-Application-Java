@@ -1,7 +1,7 @@
 public class HendecagonalState extends State {
-	StateManager stateManager;
-	int x1, y1;
-	MyHendecagonal currentHendecagonal;
+	private StateManager stateManager;
+	private int x1, y1;
+	private MyHendecagonal currentHendecagonal;
 	
 	public HendecagonalState(StateManager stateManager) {
 		this.stateManager = stateManager;

@@ -1,7 +1,7 @@
 
 public class SelectState extends State {
-	StateManager stateManager;
-	int x1, y1;
+	private StateManager stateManager;
+	private int x1, y1;
 	
 	public SelectState(StateManager stateManager) {
 		this.stateManager = stateManager;

@@ -1,13 +1,11 @@
-import java.awt.Color;
 import java.util.Enumeration;
 import java.util.Vector;
 
 public class Mediator {
-	Vector<MyDrawing> drawings;
-	MyCanvas canvas;
-	MyDrawing selectedDrawing = null;
-	Color drawColor;
-	MyDrawing buffer = null; // Cut, Copyバッファ
+	private Vector<MyDrawing> drawings;
+	private MyCanvas canvas;
+	private MyDrawing selectedDrawing = null;
+	private MyDrawing buffer = null; // Cut, Copyバッファ
 	
 	public Mediator(MyCanvas canvas) {
 		this.canvas = canvas;
@@ -40,6 +38,7 @@ public class Mediator {
         clearBuffer();
         buffer = selectedDrawing.clone();
         removeDrawing(selectedDrawing); // drawingsからselectedDrawingを削除。
+        repaint();
     }
     
     public void paste(int x, int y)
@@ -56,19 +55,9 @@ public class Mediator {
 			selectedDrawing = null;
 		}
 		drawings.remove(d);
+		repaint();
 	}
-	
-	public void deleteSelectedDrawing() {
-		if (selectedDrawing != null) {
-			// removeDrawingメソッドは、選択された図形が削除された場合に
-			// selectedDrawingをnullにする処理を updateSelection(null) を通じて行う。
-			MyDrawing drawingToDelete = selectedDrawing; // 先に参照を保持
-			removeDrawing(drawingToDelete); // drawingsからの削除とselectedDrawingの更新
-			repaint(); // 画面の再描画を指示
-		}
-	}
-	
-	
+
 	public MyDrawing getSelectedDrawing() {
 		return selectedDrawing;
 	}
@@ -79,10 +68,6 @@ public class Mediator {
 	
 	public void setSelectedDrawing(MyDrawing selectedDrawing) {
 		this.selectedDrawing = selectedDrawing;
-	}
-	
-	public void setColor(Color color) {
-		drawColor = color;
 	}
 	
 	public void setSelected(int x, int y) {

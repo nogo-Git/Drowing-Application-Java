@@ -1,7 +1,7 @@
 public class OvalState extends State {
-	StateManager stateManager;
-	int x1, y1;
-	MyOval currentOval;
+	private StateManager stateManager;
+	private int x1, y1;
+	private MyOval currentOval;
 	
 	public OvalState(StateManager stateManager) {
 		this.stateManager = stateManager;
