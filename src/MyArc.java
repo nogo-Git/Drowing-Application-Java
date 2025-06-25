@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Arc2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class MyArc extends MyDrawing {
 	private int startAngle = 0;
@@ -59,6 +61,13 @@ public class MyArc extends MyDrawing {
 		g2.setColor(getLineColor());
 		g2.drawArc(x, y, w, h, startAngle, arcAngle);
 	}
+	
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        // オブジェクトの全フィールド（親クラスのものも含む）を復元
+        in.defaultReadObject();
+        // 復元された値を元に、当たり判定領域を再設定する
+        setRegion();
+    }
 	
 	@Override
 	public void setRegion() {

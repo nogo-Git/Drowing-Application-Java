@@ -4,12 +4,24 @@ import java.util.Vector;
 public class Mediator {
 	private Vector<MyDrawing> drawings;
 	private MyCanvas canvas;
-	private MyDrawing selectedDrawing = null;
-	private MyDrawing buffer = null; // Cut, Copyバッファ
+	private Vector<MyDrawing> selectedDrawings;
+	private Vector<MyDrawing> buffers; // Cut, Copyバッファ
 	
 	public Mediator(MyCanvas canvas) {
 		this.canvas = canvas;
 		drawings = new Vector<MyDrawing>();
+		selectedDrawings = new Vector<MyDrawing>();
+		buffers = new Vector<MyDrawing>();
+	}
+	
+	public Vector<MyDrawing> getDrawings() {
+		return drawings;
+	}
+	
+	public void setDrawings(Vector<MyDrawing> drawings) {
+		this.drawings = drawings;
+		this.selectedDrawings.clear();
+		repaint();
 	}
 	
 	public Enumeration<MyDrawing> drawingsElements() {
@@ -22,44 +34,61 @@ public class Mediator {
 	
 	public void clearBuffer()
     {
-        buffer = null;
+		buffers.clear();
     }
 
     public void copy()
     {
-        // バッファをクリアする
         clearBuffer();
-        buffer = selectedDrawing.clone();
+        for (MyDrawing d : selectedDrawings) {
+        	buffers.add(d.clone());
+        }
     }
 
     public void cut()
     {
-        // バッファをクリアする
-        clearBuffer();
-        buffer = selectedDrawing.clone();
-        removeDrawing(selectedDrawing); // drawingsからselectedDrawingを削除。
-        repaint();
+    	copy();
+    	for(MyDrawing d : selectedDrawings) {
+    		drawings.remove(d);
+    	}
+    	selectedDrawings.clear();
+    	repaint();
     }
     
     public void paste(int x, int y)
     {
-        MyDrawing clone = (MyDrawing)buffer.clone();
-        clone.setLocation(x, y);
-        addDrawing(clone);
-        repaint();
+    	if (buffers != null && !buffers.isEmpty()) {
+    		// 貼り付け位置の基準となる左上の座標を計算
+    		int minX = Integer.MAX_VALUE;
+    		int minY = Integer.MAX_VALUE;
+    		for (MyDrawing d : buffers) {
+    			if (d.getX() < minX) minX = d.getX();
+    			if (d.getY() < minY) minY = d.getY();
+    		}
+    		
+    		// 相対位置を保ったまま貼り付け
+    		for (MyDrawing d : buffers) {
+    			MyDrawing clone = d.clone();
+    			clone.setLocation(x + (d.getX() - minX), y + (d.getY() - minY));
+    			addDrawing(clone);
+    		}
+    		repaint();
+    	}
     }
 
 	
 	public void removeDrawing(MyDrawing d) {
-		if (d == selectedDrawing) {
-			selectedDrawing = null;
+		if (d != null) {
+			drawings.remove(d);
+			if(selectedDrawings != null) {
+				selectedDrawings.remove(d);
+			}
 		}
-		drawings.remove(d);
 		repaint();
 	}
 
-	public MyDrawing getSelectedDrawing() {
-		return selectedDrawing;
+	public Vector<MyDrawing> getSelectedDrawing() {
+		return selectedDrawings;
 	}
 	
 	public void repaint() {
@@ -67,20 +96,20 @@ public class Mediator {
 	}
 	
 	public void setSelectedDrawing(MyDrawing selectedDrawing) {
-		this.selectedDrawing = selectedDrawing;
+		selectedDrawings.add(selectedDrawing);
 	}
 	
 	public void setSelected(int x, int y) {
-		for (int i = 0; i < drawings.size(); i++) {
-			drawings.get(i).setSelected(false);
-			selectedDrawing = null;
+		for (MyDrawing d : selectedDrawings) {
+			d.setSelected(false);
 		}
-		MyDrawing tmpDrawing = null;
+		selectedDrawings.clear();
+		
 		for (int i = drawings.size() - 1; i >= 0; i--) {
-			tmpDrawing = drawings.get(i);
-			if (tmpDrawing.contains(x, y)) {
-				setSelectedDrawing(tmpDrawing);
-				tmpDrawing.setSelected(true);
+			MyDrawing d = drawings.get(i);
+			if (d.contains(x, y)) {
+				setSelectedDrawing(d);
+				d.setSelected(true);
 				break;
 			}
 		}

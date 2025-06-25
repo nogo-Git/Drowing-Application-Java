@@ -1,5 +1,6 @@
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Vector;
 
 public class ShadowCheckItemListener implements ItemListener {
     private StateManager stateManager;
@@ -16,9 +17,12 @@ public class ShadowCheckItemListener implements ItemListener {
         stateManager.setShadow(selected); //
         
         // 図形を選択している場合はその図形の影の有無を変更
-        MyDrawing selectedDrawing = mediator.getSelectedDrawing();
-        if (selectedDrawing != null) {
-        	selectedDrawing.setShadow(selected);
+        Vector<MyDrawing> selectedDrawings = mediator.getSelectedDrawing();
+        
+        if (selectedDrawings != null && !selectedDrawings.isEmpty()) {
+        	for (MyDrawing d : selectedDrawings){
+        		d.setShadow(selected);
+        	}
         	mediator.repaint();
         }
     }

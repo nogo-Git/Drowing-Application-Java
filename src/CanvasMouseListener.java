@@ -22,4 +22,9 @@ public class CanvasMouseListener extends MouseAdapter {
         }
         canvas.requestFocusInWindow(); // マウスプレス時にキャンバスにフォーカスを要求
     }
+    
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        stateManager.mouseUp(e.getX(), e.getY());
+    }
 }

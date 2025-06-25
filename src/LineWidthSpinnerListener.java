@@ -1,3 +1,5 @@
+import java.util.Vector;
+
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -19,10 +21,12 @@ public class LineWidthSpinnerListener implements ChangeListener {
         stateManager.setLineWidth(lineWidthVal);
         
         // 選択している図形の線の太さを変更
-        MyDrawing selectedDrawing = mediator.getSelectedDrawing();
-        if (selectedDrawing != null) {
-        	selectedDrawing.setLineWidth(lineWidthVal);
-        	mediator.repaint();
+        Vector<MyDrawing> selectedDrawings = mediator.getSelectedDrawing();
+        if (selectedDrawings != null && !selectedDrawings.isEmpty()) {
+        	for (MyDrawing d : selectedDrawings) {
+        		d.setLineWidth(lineWidthVal);
+        	}
         }
+        mediator.repaint();
     }
 }

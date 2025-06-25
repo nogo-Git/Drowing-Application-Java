@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class DeleteActionListener implements ActionListener {
     private Mediator mediator;
@@ -10,6 +11,11 @@ public class DeleteActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        mediator.removeDrawing(mediator.getSelectedDrawing()); // 選択されている図形を削除
+    	Vector<MyDrawing> selectedDrawings = mediator.getSelectedDrawing();
+    	Vector<MyDrawing> drawingsToRemove = new Vector<>(selectedDrawings);
+    	
+    	for (MyDrawing d : drawingsToRemove) {
+    		mediator.removeDrawing(d);
+    	}
     }
 }

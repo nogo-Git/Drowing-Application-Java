@@ -4,15 +4,16 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.io.Serializable;
 
-public class MyDrawing implements Cloneable{
+public class MyDrawing implements Cloneable, Serializable{
 	private int x, y, w, h;	// X座標，Y座標，幅，高さ
 	private Color lineColor, fillColor;	// 線の色，塗り色
 	private int lineWidth;	// 線の太さ
 	private boolean isShadow = false; // 影を付けるかどうか
 	private boolean isDashed = false; // 破線であるかどうか
-	boolean isSelected;
-	Shape region;
+	transient boolean isSelected;
+	transient Shape region;
 	private int SIZE;
 	
 	public MyDrawing(int x, int y, int w, int h, Color lineColor, Color fillColor, int lineWidth) {

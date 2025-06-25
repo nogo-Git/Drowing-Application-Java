@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
@@ -49,15 +50,18 @@ public class ColorComboBox extends JComboBox<String> {
 			stateManager.setFillColor(color);
 		}
 		
-		MyDrawing selected = mediator.getSelectedDrawing(); //
-        if (selected != null) {
-        	if (colorType.equals("line")) {
-    			selected.setLineColor(color);
-    		} else {
-    			selected.setFillColor(color);
-    		}
-            mediator.repaint(); // 選択された図形の変更を表示するために再描画
-        }
+		Vector<MyDrawing> selectedDrawings = mediator.getSelectedDrawing();
+		if (selectedDrawings != null && !selectedDrawings.isEmpty()) {
+			for (MyDrawing d : selectedDrawings) {
+				if (colorType.equals("line")) {
+					d.setLineColor(color);
+				} else {
+					d.setFillColor(color);
+				}
+			}
+			
+			mediator.repaint();
+		}
 	}
 		
 	class ColorSelectionListener implements ActionListener {

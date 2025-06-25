@@ -65,6 +65,14 @@ public class MyApplication extends JFrame {
         // --- メニューバー、メニュー、メニューアイテムの作成 ---
         JMenuBar menuBar = new JMenuBar();
         
+        // --- 「File」メニュー ---
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem openItem = new JMenuItem("Open");
+        JMenuItem saveItem = new JMenuItem("Save");
+        fileMenu.add(openItem);
+        fileMenu.add(saveItem);
+        menuBar.add(fileMenu);
+        
         // --- 「Edit」メニュー ---
         JMenu editMenu = new JMenu("Edit");
         JMenuItem deleteItem = new JMenuItem("Delete");
@@ -83,6 +91,10 @@ public class MyApplication extends JFrame {
         getContentPane().add(canvas, BorderLayout.CENTER);
 
         // --- イベントリスナー設定 ---
+        // ファイルメニューのリスターを設定
+        openItem.addActionListener(new OpenActionListener(mediator, this));
+        saveItem.addActionListener(new SaveActionListener(mediator, this));
+        
         // メニューアイテムのリスナーを設定
         deleteItem.addActionListener(new DeleteActionListener(mediator));
         copyItem.addActionListener(new CopyActionListener(mediator));
