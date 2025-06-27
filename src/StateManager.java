@@ -53,6 +53,7 @@ public class StateManager {
 	
 	public void mouseUp(int x, int y) {
 		currentState.mouseUp(x, y);
+		mediator.repaint();	
 	}
 	
 	public boolean getShadow() {

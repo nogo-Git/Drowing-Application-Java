@@ -29,16 +29,20 @@ public class MyDrawing implements Cloneable, Serializable{
 		
 		// 選択状態を表す四角形を描く
 		if (isSelected) {
-			SIZE = lineWidth * 3;
-			g.setColor(Color.black);
-			g.fillRect(x+w/2-SIZE/2, y-SIZE/2, SIZE, SIZE);
-			g.fillRect(x-SIZE/2, y+h/2-SIZE/2, SIZE, SIZE);
-			g.fillRect(x+w/2-SIZE/2, y+h-SIZE/2, SIZE, SIZE);
-			g.fillRect(x+w-SIZE/2, y+h/2-SIZE/2, SIZE, SIZE);
-			g.fillRect(x-SIZE/2, y-SIZE/2, SIZE, SIZE);
-			g.fillRect(x+w-SIZE/2, y-SIZE/2, SIZE, SIZE);
-			g.fillRect(x-SIZE/2, y+h-SIZE/2, SIZE, SIZE);
-			g.fillRect(x+w-SIZE/2, y+h-SIZE/2, SIZE, SIZE);
+			if (region != null) {
+				Rectangle bounds = region.getBounds();
+				
+				SIZE = lineWidth * 2;
+				g.setColor(Color.black);
+				g.fillRect(bounds.x+bounds.width/2-SIZE/2, bounds.y-SIZE/2, SIZE, SIZE);
+				g.fillRect(bounds.x-SIZE/2, bounds.y+bounds.height/2-SIZE/2, SIZE, SIZE);
+				g.fillRect(bounds.x+bounds.width/2-SIZE/2, bounds.y+bounds.height-SIZE/2, SIZE, SIZE);
+				g.fillRect(bounds.x+bounds.width-SIZE/2, bounds.y+bounds.height/2-SIZE/2, SIZE, SIZE);
+				g.fillRect(bounds.x-SIZE/2, bounds.y-SIZE/2, SIZE, SIZE);
+				g.fillRect(bounds.x+bounds.width-SIZE/2, bounds.y-SIZE/2, SIZE, SIZE);
+				g.fillRect(bounds.x-SIZE/2, bounds.y+bounds.height-SIZE/2, SIZE, SIZE);
+				g.fillRect(bounds.x+bounds.width-SIZE/2, bounds.y+bounds.height-SIZE/2, SIZE, SIZE);
+			}
 		}
 		
 		if (isDashed)
