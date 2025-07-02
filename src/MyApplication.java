@@ -109,7 +109,7 @@ public class MyApplication extends JFrame {
         
         // チェックボックスのリスナーを設定
         shadowCheck.addItemListener(new ShadowCheckItemListener(stateManager, mediator));
-        dashCheck.addItemListener(new DashCheckItemListener(stateManager));
+        dashCheck.addItemListener(new DashCheckItemListener(stateManager, mediator));
         
         // スピナーのリスナーを設定
         lineWidthSpinner.addChangeListener(new LineWidthSpinnerListener(stateManager, mediator, lineWidthSpinner));

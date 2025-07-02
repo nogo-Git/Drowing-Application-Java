@@ -13,7 +13,7 @@ public class MyDrawing implements Cloneable, Serializable{
 	private boolean isShadow = false; // 影を付けるかどうか
 	private boolean isDashed = false; // 破線であるかどうか
 	transient boolean isSelected;
-	transient Shape region;
+	 Shape region;
 	private int SIZE;
 	
 	public MyDrawing(int x, int y, int w, int h, Color lineColor, Color fillColor, int lineWidth) {
